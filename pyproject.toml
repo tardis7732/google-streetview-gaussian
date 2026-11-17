@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "google-streetview-gaussian"
+version = "0.1.0"
+description = "Month-filtered Google Street View Gaussian reconstruction experiments and paired image capture tools"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26,<3", "scipy>=1.11,<2", "Pillow>=10,<13", "opencv-python-headless>=4.10,<6", "plyfile>=1.1,<2"]
+
+[project.optional-dependencies]
+google = ["streetview-to-3d @ git+https://github.com/YellowO2/streetview-to-3d.git@56fedd8efe3bf63e8bcdf5625cd9da67d9b6375c"]
+dev = ["pytest>=8,<10", "build>=1.2"]
+
+[project.scripts]
+streetview-gaussian = "google_streetview_gaussian.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+google_streetview_gaussian = ["web/*.html", "web/*.css", "web/*.mjs", "web/*.py"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
